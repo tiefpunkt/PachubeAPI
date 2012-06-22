@@ -1,7 +1,7 @@
 <?php
 /**
  * Pachube API class
- * Version 0.3 (June 2011)
+ * Version 0.4 (June 2012)
  * Requirements: PHP5, cURL, API v.2.0
  *
  * This program is free software; you can redistribute it and/or modify
@@ -210,9 +210,10 @@ class PachubeAPI
 	 * @param bool find_previous
 	 * @param string interval_type ("discrete", false)
 	 * @param int interval (in seconds: 0, 30, 60, 300, 900, 3600, 10800, 21600, 43200, 86400)
+	 * @param string timezone
 	 * @return string
 	 */
-	public function getFeedHistory($format, $feed, $start=false, $end=false, $duration=false, $page=false, $per_page=false, $time=false, $find_previous=false, $interval_type=false, $interval=false)
+	public function getFeedHistory($format, $feed, $start=false, $end=false, $duration=false, $page=false, $per_page=false, $time=false, $find_previous=false, $interval_type=false, $interval=false, $timezone=false)
 	{
 		if($format && ($format == "json" || $format == "csv" || $format == "xml")) $feed .= ".". $format;
 		$url = "http://$this->Pachube/feeds/$feed?";
@@ -225,6 +226,7 @@ class PachubeAPI
 		if($find_previous) $url .= "find_previous=" . $find_previous . "&";
 		if($interval_type) $url .= "interval_type=" . $interval_type . "&";
 		if($interval) $url .= "interval=" . $interval;
+		if($timezone) $url .= "timezone=" . $timezone;
 		
 		return $this->_getRequest($url);
 	}
@@ -243,9 +245,10 @@ class PachubeAPI
 	 * @param bool find_previous
 	 * @param string interval_type ("discrete", false)
 	 * @param int interval (in seconds: 0, 30, 60, 300, 900, 3600, 10800, 21600, 43200, 86400)
+	 * @param string timezone
 	 * @return string
 	 */
-	public function getDatastreamHistory($format, $feed, $datastream, $start=false, $end=false, $duration=false, $page=false, $per_page=false, $time=false, $find_previous=false, $interval_type=false, $interval=false)
+	public function getDatastreamHistory($format, $feed, $datastream, $start=false, $end=false, $duration=false, $page=false, $per_page=false, $time=false, $find_previous=false, $interval_type=false, $interval=false, $timezone=false)
 	{
 		if($format && ($format == "json" || $format == "csv" || $format == "xml")) $datastream .= ".". $format;
 		$url = "http://$this->Pachube/feeds/$feed/datastreams/$datastream?";
@@ -258,6 +261,7 @@ class PachubeAPI
 		if($find_previous) $url .= "find_previous=" . $find_previous . "&";
 		if($interval_type) $url .= "interval_type=" . $interval_type . "&";
 		if($interval) $url .= "interval=" . $interval;
+		if($timezone) $url .= "timezone=" . $timezone;
 		
 		return $this->_getRequest($url);
 	}
